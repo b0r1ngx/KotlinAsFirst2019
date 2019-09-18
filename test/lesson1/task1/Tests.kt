@@ -18,7 +18,7 @@ class Tests {
     @Tag("Example")
     fun sqrDouble() {
         assertEquals(0.0, sqr(0.0), 1e-13)
-        assertEquals(4.0, sqr(2.0), 1e-13)
+        assertEquals(6.25, sqr(2.5), 1e-13)
         assertEquals(9.0, sqr(-3.0), 1e-13)
     }
 
@@ -26,7 +26,7 @@ class Tests {
     @Tag("Example")
     fun discriminant() {
         assertEquals(0.0, discriminant(0.0, 0.0, 0.0), 1e-13)
-        assertEquals(0.0, discriminant(1.0, -2.0, 1.0), 1e-13)
+        assertEquals(9.0, discriminant(4.0, -5.0, 1.0), 1e-13)
         assertEquals(1.0, discriminant(1.0, 3.0, 2.0), 1e-13)
     }
 
@@ -34,14 +34,14 @@ class Tests {
     @Tag("Example")
     fun quadraticEquationRoot() {
         assertEquals(2.0, quadraticEquationRoot(1.0, -3.0, 2.0), 1e-13)
-        assertEquals(1.0, quadraticEquationRoot(1.0, -2.0, 1.0), 1e-13)
+        assertEquals(0.5, quadraticEquationRoot(4.0, -4.0, 1.0), 1e-13)
         assertEquals(-3.0, quadraticEquationRoot(1.0, 6.0, 9.0), 1e-13)
     }
 
     @Test
     @Tag("Example")
     fun quadraticRootProduct() {
-        assertEquals(1.0, quadraticRootProduct(1.0, -2.0, 1.0), 1e-13)
+        assertEquals(0.25, quadraticRootProduct(4.0, -4.0, 1.0), 1e-13)
         assertEquals(9.0, quadraticRootProduct(1.0, 6.0, 9.0), 1e-13)
         assertEquals(2.0, quadraticRootProduct(1.0, 3.0, 2.0), 1e-13)
     }

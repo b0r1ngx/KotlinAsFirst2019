@@ -99,10 +99,8 @@ fun angleInRadian(deg: Int, min: Int, sec: Int): Double {
  * Найти длину отрезка, соединяющего точки на плоскости с координатами (x1, y1) и (x2, y2).
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
-fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
-    val l = sqrt(sqr(x2 - x1) + sqr(y2 - y1))
-    return l
-}
+fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double =
+    sqrt(sqr(x2 - x1) + sqr(y2 - y1))
 
 /**
  * Простая
@@ -110,10 +108,7 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
  * Пользователь задает целое число, большее 100 (например, 3801).
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
-fun thirdDigit(number: Int): Int {
-    val third = (number / 100) % 10
-    return third
-}
+fun thirdDigit(number: Int): Int = (number / 100) % 10
 
 /**
  * Простая
@@ -145,7 +140,7 @@ fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
  */
 fun numberRevert(number: Int): Int {
     val x3 = (number % 10) * 100
-    val x2 = ((number / 10) % 10) *10
+    val x2 = ((number / 10) % 10) * 10
     val x1 = number / 100
-    return x3+x2+x1
+    return x3 + x2 + x1
 }

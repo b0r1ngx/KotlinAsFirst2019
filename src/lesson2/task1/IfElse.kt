@@ -158,7 +158,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     } else if (c > max) {
         max = c
     }
-    return if
+    return if or when... k = min1^2+min2^2-max1^2<0 then...
     }
 }
 

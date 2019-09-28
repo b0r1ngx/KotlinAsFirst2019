@@ -5,6 +5,7 @@ package lesson2.task1
 import lesson1.task1.discriminant
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
@@ -152,15 +153,17 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    val max: Double = a
-    if (b > max) {
-        max = b
-    } else if (c > max) {
-        max = c
-    }
-    return if or when... k = min1^2+min2^2-max1^2<0 then...
+    return if (a >= b + c || b >= a + c || c >= a + b) {
+        (-1)
+    } else if (a * a > b * b + c * c || b * b > a * a + c * c || c * c > a * a + b * b) {
+        (2)
+    } else if (a * a == b * b + c * c || b * b == a * a + c * c || c * c == a * a + b * b) {
+        (1)
+    } else {
+        (0)
     }
 }
+/**можно еще найти самую максимальную сторону и после работать вокруг нее*/
 
 /**
  * Средняя
@@ -170,4 +173,9 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    val first = max(a, c)
+    val second = min(b, d)
+    return max(second - first, -1)
+}
+

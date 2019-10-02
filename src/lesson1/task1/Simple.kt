@@ -135,6 +135,7 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
     val cashOut = initial * percForCash * percForCash * percForCash
     return cashOut
 }
+
 /**
  * Простая
  *

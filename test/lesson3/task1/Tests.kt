@@ -49,6 +49,13 @@ class Tests {
         assertTrue(isPerfect(6))
         assertTrue(isPerfect(28))
         assertFalse(isPerfect(100))
+        var count = 0
+        for (n in 2..10000) {
+            if (isPerfect(n)) {
+                count++
+            }
+        }
+        assertEquals(4, count)
     }
 
     @Test
@@ -56,7 +63,9 @@ class Tests {
     fun digitCountInNumber() {
         assertEquals(1, digitCountInNumber(0, 0))
         assertEquals(1, digitCountInNumber(7, 7))
+        assertEquals(2, digitCountInNumber(11, 1))
         assertEquals(0, digitCountInNumber(21, 3))
+        assertEquals(3, digitCountInNumber(222, 2))
         assertEquals(1, digitCountInNumber(510, 5))
         assertEquals(3, digitCountInNumber(4784041, 4))
         assertEquals(4, digitCountInNumber(5373393, 3))

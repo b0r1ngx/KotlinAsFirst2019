@@ -2,6 +2,9 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
+import java.lang.Math.pow
+import kotlin.math.max
 import kotlin.math.sqrt
 
 /**
@@ -102,7 +105,13 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var k = max(m, n)
+    while (k % m != 0 || k % n != 0) {
+        k += max(m, n)
+    }
+    return k
+}
 
 /**
  * Простая
@@ -131,6 +140,7 @@ fun maxDivisor(n: Int): Int {
     }
     return 1
 }
+
 /**
  * Простая
  *
@@ -138,7 +148,14 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    for (i in 2..sqrt(m.toDouble()).toInt()) {
+        if (m % i == 0 && n % i == 0) {
+            return false
+        }
+    }
+    return n % m != 0 || m == 1
+}
 
 /**
  * Простая
@@ -165,7 +182,19 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var x = x
+    var steps = 0
+    while (x != 1) {
+        steps++
+        if (x % 2 == 0) {
+            x /= 2
+        } else {
+            x = x * 3 + 1
+        }
+    }
+    return steps
+}
 
 /**
  * Средняя
@@ -196,7 +225,15 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var n = n
+    var revert = 0
+    while (n > 0) {
+        revert = revert * 10 + n % 10
+        n /= 10
+    }
+    return revert
+}
 
 /**
  * Средняя
@@ -207,7 +244,7 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя
@@ -228,8 +265,18 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var digit = 0
+    var x = 1
+    var count = 1
 
+    while (digit < n) {
+        x = count * count
+        digit += digitNumber(x)
+        count++
+    }
+    return x / pow(10.0, (digit - n).toDouble()).toInt() % 10
+}
 /**
  * Сложная
  *
@@ -239,4 +286,41 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var digit = 0
+    var fib1 = 0
+    var fib2 = 1
+    var count = 1
+    var x = 0
+    while (digit < n) {
+        count = fib1 + fib2
+        digit += digitNumber(count)
+        x = fib1
+        fib1 += fib2
+        fib2 = x
+    }
+    return count / pow(10.0, (digit - n).toDouble()).toInt() % 10
+}
+
+/**
+ * Не прочитал сразу обе задачи, решил для одной..
+ * Понял что последовательность может быть не только, которые мы решаем..
+ * Можете дать комментарий, пожалуйста, будет ли код ниже работать, с любой последовательностью?
+ * (Он вроде менее эффективнее, но все же если каждый раз писать новый код для любой новой
+ * последовательности, но если учитывать время человека, конечно же эффективнее решение ниже)
+ * fun squareSequenceDigit(n: Int): Int {
+ *   var digit = 0
+ *   var x = 1
+ *   var last = 0
+ *   var n = n
+ *   while (digit < n) {
+ *       Задаем последовательность, последняя цифра которой хранится в last, например last = sqr(x)
+ *       digit += digitNumber(last)
+ *       x++
+ *   }
+ *   n = digit - n
+ *   for (i in 1..n)
+ *       last /= 10
+ *       return last % 10
+ *   }
+ */

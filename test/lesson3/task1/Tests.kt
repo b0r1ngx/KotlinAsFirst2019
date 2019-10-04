@@ -144,8 +144,9 @@ class Tests {
     @Tag("Easy")
     fun isCoPrime() {
         assertTrue(isCoPrime(25, 49))
+        assertTrue(isCoPrime(25, 14))
         assertFalse(isCoPrime(6, 8))
-        assertTrue(isCoPrime(17, 97))
+        assertTrue(isCoPrime(97, 17))
         assertFalse(isCoPrime(37, 111))
         assertTrue(isCoPrime(1234567890, 908765431))
         assertTrue(isCoPrime(2109876543, 1234567891))
@@ -172,6 +173,7 @@ class Tests {
         assertEquals(7, collatzSteps(3))
         assertEquals(5, collatzSteps(5))
         assertEquals(6, collatzSteps(10))
+        assertEquals(17, collatzSteps(15))
         assertEquals(7, collatzSteps(20))
         assertEquals(6, collatzSteps(64))
         assertEquals(25, collatzSteps(100))

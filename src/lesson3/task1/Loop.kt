@@ -86,12 +86,12 @@ fun digitNumber(n: Int): Int {
 fun fib(n: Int): Int {
     var fib1 = 1
     var fib2 = 1
-    var fibN = 0
+    var fibN = 1
     if (n <= 2) return 1
     for (i in 3..n) {
+        fib2 = fibN
         fibN = fib1 + fib2
-        fib2 = fibN - fib1
-        fib1 -= fib2
+        fib1 = fibN - fib1
     }
     return fibN
 }
@@ -102,9 +102,7 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-
-}
+fun lcm(m: Int, n: Int): Int = TODO()
 
 /**
  * Простая
@@ -112,7 +110,12 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-
+    for (i in 2..sqrt(n.toDouble()).toInt()) {
+        if (n % i == 0) {
+            return i
+        }
+    }
+    return n
 }
 
 /**
@@ -121,9 +124,13 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-
+    for (i in 2..sqrt(n.toDouble()).toInt()) {
+        if (n % i == 0) {
+            return n / i
+        }
+    }
+    return 1
 }
-
 /**
  * Простая
  *
@@ -180,9 +187,7 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double {
-
-}
+fun cos(x: Double, eps: Double): Double = TODO()
 
 /**
  * Средняя
@@ -191,9 +196,7 @@ fun cos(x: Double, eps: Double): Double {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int {
-
-}
+fun revert(n: Int): Int = TODO()
 
 /**
  * Средняя
@@ -225,9 +228,7 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int {
-
-}
+fun squareSequenceDigit(n: Int): Int = TODO()
 
 /**
  * Сложная
@@ -238,6 +239,4 @@ fun squareSequenceDigit(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int {
-
-}
+fun fibSequenceDigit(n: Int): Int = TODO()

@@ -138,7 +138,13 @@ fun mean(list: List<Double>) =
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    val mean = mean(list)
+    for (i in 0 until list.size) {
+        list[i] -= mean
+    }
+    return list
+}
 
 /**
  * Средняя
@@ -147,7 +153,7 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>) = a.foldIndexed(0) { i, c, _ -> c + a[i] * b[i] }
 
 /**
  * Средняя
@@ -157,7 +163,15 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int = TODO()
+fun polynom(p: List<Int>, x: Int): Int {
+    var poly = 0
+    var xx = 1
+    for (i in 0 until p.size) {
+        poly += p[i] * xx
+        xx *= x
+    }
+    return poly
+}
 
 /**
  * Средняя
@@ -169,7 +183,14 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+    var prev = 0
+    for (i in 0 until list.size) {
+        prev += list[i]
+        list[i] = prev
+    }
+    return list
+}
 
 /**
  * Средняя
@@ -178,7 +199,9 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+
+}
 
 /**
  * Сложная

@@ -275,7 +275,15 @@ fun convertToString(n: Int, base: Int): String {
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int {
+    var sum = 0
+    var iBase = 1
+    for (i in digits.size - 1 downTo 0) {
+        sum += digits[i] * iBase
+        iBase *= base
+    }
+    return sum
+}
 
 /**
  * Сложная
@@ -289,7 +297,17 @@ fun decimal(digits: List<Int>, base: Int): Int = TODO()
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
-fun decimalFromString(str: String, base: Int): Int = TODO()
+fun decimalFromString(str: String, base: Int): Int {
+    val digits = mutableListOf<Int>()
+    for (char in str) {
+        if (char >= 'a') {
+            digits.add(10 + (char - 'a'))
+        } else {
+            digits.add(char - '0')
+        }
+    }
+    return decimal(digits, base)
+}
 
 /**
  * Сложная

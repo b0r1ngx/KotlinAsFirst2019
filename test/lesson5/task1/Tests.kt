@@ -52,6 +52,10 @@ class Tests {
 
         filterByCountryCode(phoneBook, "+999")
         assertEquals(0, phoneBook.size)
+
+        // Не работает тест, для вашей программы T_T
+        filterByCountryCode(phoneBook, "+82")
+        assertEquals(1, phoneBook.size)
     }
 
     @Test

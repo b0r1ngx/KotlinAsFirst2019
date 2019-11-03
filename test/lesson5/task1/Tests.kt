@@ -127,6 +127,10 @@ class Tests {
     fun containsIn() {
         assertTrue(containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")))
         assertFalse(containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")))
+        assertTrue(containsIn(mapOf("1" to "9"), mapOf("a" to "z", "1" to "9")))
+        assertTrue(containsIn(mapOf("1" to "9", "b" to "t"), mapOf("b" to "t", "1" to "9")))
+        assertFalse(containsIn(mapOf("a" to "k", "a" to "d"), mapOf("a" to "z", "a" to "k")))
+
     }
 
     @Test
@@ -158,6 +162,10 @@ class Tests {
         assertEquals(
             emptyList<String>(),
             whoAreInBoth(listOf("Marat", "Mikhail"), listOf("Sveta", "Kirill"))
+        )
+        assertEquals(
+            listOf("Marat"),
+            whoAreInBoth(listOf("Marat", "Semen", "Marat"), listOf("Marat", "Marat", "Kirill"))
         )
     }
 

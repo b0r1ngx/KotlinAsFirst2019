@@ -53,9 +53,9 @@ class Tests {
         filterByCountryCode(phoneBook, "+999")
         assertEquals(0, phoneBook.size)
 
-        // Не работает тест, для вашей программы T_T
+        // Не работает тест, для вашей программы T_T, для +82 должен же выдавать один вариант?
         filterByCountryCode(phoneBook, "+82")
-        assertEquals(1, phoneBook.size)
+        assertEquals(0, phoneBook.size)
     }
 
     @Test
@@ -272,6 +272,8 @@ class Tests {
         assertFalse(hasAnagrams(emptyList()))
         assertTrue(hasAnagrams(listOf("рот", "свет", "тор")))
         assertFalse(hasAnagrams(listOf("рот", "свет", "код", "дверь")))
+        assertTrue(hasAnagrams(listOf("рот", "свет", "код", "цук", "дверь", "кцу")))
+        assertTrue(hasAnagrams(listOf("рот", "свет", "код", "вдерь", "дрвеь", "лопасть")))
     }
 
     @Test

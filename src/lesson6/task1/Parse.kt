@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import java.lang.NumberFormatException
+
 /**
  * Пример
  *
@@ -109,7 +111,19 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    val parts = jumps.split(" ")
+    var result = -1
+    try {
+        for (jump in parts) {
+            if (jump != "" && jump != "%" && jump != "-" && result < jump.toInt())
+                result = jump.toInt()
+        }
+    } catch (e: NumberFormatException) {
+        return -1
+    }
+    return result
+}
 
 /**
  * Сложная
@@ -144,7 +158,16 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val parts = str.split(" ")
+    var result = 0
+    for (i in 1 until parts.size) {
+        if (parts[i - 1].toLowerCase() == parts[i].toLowerCase())
+            return result
+        result += parts[i - 1].length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная
@@ -157,7 +180,25 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше либо равны нуля.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    val parts = description.split("; ")
+    var name = ""
+    var price = 0.0
+    try {
+        for (part in parts) {
+            val par = part.split(" ")
+            if (par.size != 2)
+                return ""
+            if (par[1].toDouble() >= price) {
+                price = par[1].toDouble()
+                name = par[0]
+            }
+        }
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+    return name
+}
 
 /**
  * Сложная

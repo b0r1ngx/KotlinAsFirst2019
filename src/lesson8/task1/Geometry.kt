@@ -57,7 +57,7 @@ class Triangle private constructor(private val points: Set<Point>) {
         val abp = Triangle(a, b, p)
         val bcp = Triangle(b, c, p)
         val cap = Triangle(c, a, p)
-        return abp.area() + bcp.area() + cap.area() <= area()
+        return abp.area() + bcp.area() + cap.area() == area()
     }
 
     override fun equals(other: Any?) = other is Triangle && points == other.points
@@ -79,14 +79,16 @@ data class Circle(val center: Point, val radius: Double) {
      * расстояние между их центрами минус сумма их радиусов.
      * Расстояние между пересекающимися окружностями считать равным 0.0.
      */
-    fun distance(other: Circle): Double = TODO()
+    fun distance(other: Circle): Double =
+        if (other.center.distance(center) <= other.radius + radius) (0.0)
+        else (other.center.distance(center) - (other.radius + radius))
 
     /**
      * Тривиальная
      *
      * Вернуть true, если и только если окружность содержит данную точку НА себе или ВНУТРИ себя
      */
-    fun contains(p: Point): Boolean = TODO()
+    fun contains(p: Point): Boolean = sqr(center.x - p.x) + sqr(center.y - p.y) <= sqr(radius)
 }
 
 /**
@@ -106,7 +108,13 @@ data class Segment(val begin: Point, val end: Point) {
  * Дано множество точек. Вернуть отрезок, соединяющий две наиболее удалённые из них.
  * Если в множестве менее двух точек, бросить IllegalArgumentException
  */
-fun diameter(vararg points: Point): Segment = TODO()
+fun diameter(vararg points: Point): Segment {
+    try {
+
+    } catch (IllegalArgumentException) {
+        throw IllegalArgumentException()
+    }
+}
 
 /**
  * Простая

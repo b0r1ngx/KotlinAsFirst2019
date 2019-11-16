@@ -185,7 +185,6 @@ fun firstDuplicateIndex(str: String): Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше либо равны нуля.
  */
-
 fun mostExpensive(description: String): String {
     val parts = description.split("; ")
     var name = ""

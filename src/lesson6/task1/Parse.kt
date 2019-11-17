@@ -2,6 +2,7 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
 import java.lang.NumberFormatException
 
 /**
@@ -74,8 +75,16 @@ fun main() {
 fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
     if (parts.size != 3) return ""
-
-
+    val months = listOf(
+        "", "января", "февраля", "марта", "апреля", "мая", "июня",
+        "июля", "августа", "сентября", "октября", "ноября", "декабря"
+    )
+    val days = daysInMonth(months.indexOf(parts[1]), parts[2].toInt())
+    return if (parts[0].toInt() <= days && parts[1] in months) {
+        String.format("%02d.%02d.%d", parts[0].toInt(), months.indexOf(parts[1]), parts[2].toInt())
+    } else {
+        ""
+    }
 }
 
 /**

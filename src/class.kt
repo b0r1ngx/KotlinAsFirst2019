@@ -34,10 +34,9 @@ class Field(val size: Int) {
 
     fun cellAddO(cell: Cell) = this.set(cell, Mark.O)
 
-    fun cellClear(cell: Cell): Field {
+    fun cellClear(cell: Cell) {
         if (get(cell) == Mark.X || get(cell) == Mark.O)
             field[cell] = Mark.EMPTY
-        return Field(size)
     }
 
     fun longestX() = findLongest(Mark.X)
@@ -100,7 +99,7 @@ class Field(val size: Int) {
                     longestSequence = max(seqThirdDiagonalQuarter, longestSequence)
                     seqThirdDiagonalQuarter = 0
                 }
-                if (get(columnIndexDiagonalLeft, rowIndex) == sign) {
+                if (get(columnIndexDiagonalRight, size - 1 - rowIndex) == sign) {
                     seqFourthDiagonalQuarter++
                 } else {
                     longestSequence = max(seqFourthDiagonalQuarter, longestSequence)

@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import kotlin.math.pow
 
 /**
  * Пример
@@ -402,9 +403,35 @@ fun markdownToHtml(inputName: String, outputName: String) {
  *
  */
 fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    File(outputName).bufferedWriter().use {
+        val size = (lhv * rhv).toString()
+        for (i in 0..size.length - lhv.toString().length)
+            it.write(" ")
+        it.write(lhv.toString())
+        it.newLine()
+        it.write("*")
+        for (i in 1..size.length - rhv.toString().length)
+            it.write(" ")
+        it.write(rhv.toString())
+        it.newLine()
+        for (i in 0..size.length)
+            it.write("-")
+        it.newLine()
+        for (i in 0 until rhv.toString().length) {
+            if (i != 0)
+                it.write("+")
+            else it.write(" ")
+            val current = (lhv * ((rhv / (10.0.pow(i)).toInt()) % 10)).toString()
+            for (j in 1..size.length - current.length - i) it.write(" ")
+            it.write(current)
+            it.newLine()
+        }
+        for (i in 0..size.length)
+            it.write("-")
+        it.newLine()
+        it.write(" ${lhv * rhv}")
+    }
 }
-
 
 /**
  * Сложная
@@ -429,4 +456,5 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
+
 

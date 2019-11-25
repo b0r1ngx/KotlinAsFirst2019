@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import java.lang.IllegalArgumentException
 import java.lang.NumberFormatException
 
 /**
@@ -113,7 +114,11 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String = // (phone.contains(Regex("""\d|\+|-|\(|\)""")))
+    if (Regex("""\d+|-|\s|\+?(\d+\(\d+\)\d+|-|\d+)""").matches(phone))
+        Regex("""[\s-()]""").replace(phone, "")
+    else ""
+
 
 /**
  * Средняя
@@ -161,7 +166,19 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    if (!expression.matches(Regex("""\d+( [-+] \d+)*"""))) throw IllegalArgumentException()
+    val str = expression.split(" ")
+    var sum = str[0].toInt()
+    for (i in 1 until str.size step 2)
+        when (str[i]) {
+            "+" -> sum += str[i + 1].toInt()
+            "-" -> sum -= str[i + 1].toInt()
+            else -> throw IllegalArgumentException()
+        }
+    return sum
+
+}
 
 /**
  * Сложная
@@ -225,7 +242,9 @@ fun mostExpensive(description: String): String {
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int {
+    TODO()
+}
 
 /**
  * Очень сложная

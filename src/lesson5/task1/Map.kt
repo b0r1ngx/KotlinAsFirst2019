@@ -114,8 +114,8 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
-    for ((x, _) in a) {
-        if (b[x] == a[x]) return true
+    for ((key, value) in a) {
+        if (value == a[key]) return true
     }
     return false
 }
@@ -135,8 +135,8 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    for ((x, _) in b) {
-        if (b[x] == a[x]) a.remove(x)
+    for ((key, value) in b) {
+        if (value == a[key]) a.remove(key)
     }
 }
 
@@ -188,18 +188,16 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
     val a = stockPrices.toMap().toMutableMap()
-    for (i in a.keys) {
-        var avg = 0.0
+    for (stockName in a.keys) {
         var count = 0
-        for ((stock) in stockPrices) {
-            if (stock == i) count++
-        }
+        var forAll = 0.0
         for ((stock, price) in stockPrices) {
-            if (stock == i) avg += (price / count)
+            if (stock == stockName) {
+                count++
+                forAll += price
+            }
         }
-        for ((stock) in stockPrices) {
-            if (stock == i) a[i] = avg
-        }
+        a[stockName] = forAll / count
     }
     return a
 }

@@ -60,7 +60,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
 }.toMap()
 
 //{
-//  val final = mapOf<>() {File(inputName).readText()}
+//  val a = mapOf<>() {File(inputName).readText()}
 //  return final
 //      .split(it, ignoreCase = true).size - 1
 //      .findAll(text)

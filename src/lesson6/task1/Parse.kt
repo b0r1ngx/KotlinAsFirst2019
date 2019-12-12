@@ -80,10 +80,14 @@ fun dateStrToDigit(str: String): String {
         "", "января", "февраля", "марта", "апреля", "мая", "июня",
         "июля", "августа", "сентября", "октября", "ноября", "декабря"
     )
-    val days = daysInMonth(months.indexOf(parts[1]), parts[2].toInt())
-    return if (parts[0].toInt() <= days && parts[1] in months) {
-        String.format("%02d.%02d.%d", parts[0].toInt(), months.indexOf(parts[1]), parts[2].toInt())
-    } else {
+    return try {
+        val days = daysInMonth(months.indexOf(parts[1]), parts[2].toInt())
+        if (parts[0].toInt() <= days && parts[1] in months) {
+            String.format("%02d.%02d.%d", parts[0].toInt(), months.indexOf(parts[1]), parts[2].toInt())
+        } else {
+            ""
+        }
+    } catch (e: NumberFormatException) {
         ""
     }
 }
@@ -114,10 +118,11 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = // (phone.contains(Regex("""\d|\+|-|\(|\)""")))
-    if (Regex("""\d+|-|\s|\+?(\d+\(\d+\)\d+|-|\d+)""").matches(phone))
-        Regex("""[\s-()]""").replace(phone, "")
-    else ""
+fun flattenPhoneNumber(phone: String): String = TODO()
+// (phone.contains(Regex("""\d|\+|-|\(|\)""")))
+//    if (Regex("""\d+|-|\s|\+?(\d+\(\d+\)\d+|-|\d+)""").matches(phone))
+//        Regex("""[\s-()]""").replace(phone, "")
+//    else ""
 
 
 /**

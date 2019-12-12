@@ -124,7 +124,6 @@ fun flattenPhoneNumber(phone: String): String = TODO()
 //        Regex("""[\s-()]""").replace(phone, "")
 //    else ""
 
-
 /**
  * Средняя
  *

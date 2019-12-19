@@ -130,7 +130,8 @@ class Tests {
         assertTrue(containsIn(mapOf("1" to "9"), mapOf("a" to "z", "1" to "9")))
         assertTrue(containsIn(mapOf("1" to "9", "b" to "t"), mapOf("b" to "t", "1" to "9")))
         assertFalse(containsIn(mapOf("a" to "k", "a" to "d"), mapOf("a" to "z", "a" to "k")))
-
+        assertFalse(containsIn(mapOf("a" to "y"), mapOf("a" to "z", "b" to "sweet")))
+        assertTrue(containsIn(mapOf(), mapOf()))
     }
 
     @Test
@@ -210,12 +211,12 @@ class Tests {
             averageStockPrice(listOf())
         )
         assertEquals(
-            mapOf("MSFT" to 100.0, "NFLX" to 40.0),
-            averageStockPrice(listOf("MSFT" to 100.0, "NFLX" to 40.0))
+            mapOf("MSFT" to 150.0, "NFLX" to 40.0),
+            averageStockPrice(listOf("MSFT" to 100.0, "NFLX" to 40.0, "MSFT" to 200.0))
         )
         assertEquals(
-            mapOf("MSFT" to 150.0, "NFLX" to 40.0),
-            averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
+            mapOf("MSFT" to 100.0, "NFLX" to 40.0),
+            averageStockPrice(listOf("MSFT" to 100.0, "NFLX" to 40.0))
         )
         assertEquals(
             mapOf("MSFT" to 150.0, "NFLX" to 45.0),

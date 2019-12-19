@@ -118,9 +118,14 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String =
+    if (Regex("""^\+?([\s(\d)\-\d])+""").matches(phone))
+        Regex("""[\s-()]""").replace(phone, "")
+    else ""
+
+//fun flattenPhoneNumberR(phone: String): String =
 // (phone.contains(Regex("""\d|\+|-|\(|\)""")))
-//    if (Regex("""\d+|-|\s|\+?(\d+\(\d+\)\d+|-|\d+)""").matches(phone))
+//    if (Regex("""\d+|-|\s|\+?([\d+\(\d+\)\d+|-|\d+])""").matches(phone))
 //        Regex("""[\s-()]""").replace(phone, "")
 //    else ""
 
@@ -194,10 +199,10 @@ fun plusMinus(expression: String): Int {
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-    val parts = str.split(" ")
+    val parts = str.toLowerCase().split(" ")
     var result = 0
     for (i in 1 until parts.size) {
-        if (parts[i - 1].toLowerCase() == parts[i].toLowerCase())
+        if (parts[i - 1] == parts[i])
             return result
         result += parts[i - 1].length + 1
     }

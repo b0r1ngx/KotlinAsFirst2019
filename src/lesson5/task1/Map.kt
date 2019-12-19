@@ -114,6 +114,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
+    if (a.isEmpty() && b.isEmpty()) return true
     for ((key, value) in a) {
         if (value == b[key]) return true
     }
@@ -183,24 +184,40 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  * содержащий для каждой акции ее усредненную стоимость.
  *
  * Например:
- *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
+ *   averageStockPrice(listOf("MSFT" to 100.0, "NFLX" to 40.0, "MSFT" to 200.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    val a = stockPrices.toMap().toMutableMap()
-    for (stockName in a.keys) {
-        var count = 0
-        var forAll = 0.0
-        for ((stock, price) in stockPrices) {
-            if (stock == stockName) {
-                count++
-                forAll += price
-            }
+    val a = mutableMapOf<String, Double>()
+    var count = 0
+    var value = 0.0
+    for ((first, second) in stockPrices.sortedBy { it.first }) {
+        if (first !in a.keys) {
+            a[first] = second
+            count = 1
+            value = second
+        } else {
+            count++
+            value += second
+            a[first] = value / count
         }
-        a[stockName] = forAll / count
     }
     return a
 }
+//    val a = stockPrices.toMap().toMutableMap()
+//    for (stockName in a.keys) {
+//        var count = 0
+//        var forAll = 0.0
+//        for ((stock, price) in stockPrices) {
+//            if (stock == stockName) {
+//                count++
+//                forAll += price
+//            }
+//        }
+//        a[stockName] = forAll / count
+//    }
+//    return a
+//}
 
 /**
  * Средняя

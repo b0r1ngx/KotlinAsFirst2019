@@ -58,7 +58,11 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     TODO()
 }
-
+//
+//
+//
+//
+//
 /**
  * Средняя
  *
@@ -125,7 +129,35 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val input = File(inputName).readLines()
+
+    File(outputName).bufferedWriter().use { its ->
+        val len = input.map { it.trim().replace(Regex("""\s+"""), " ") }
+            .map { it.length }.max() ?: 0
+
+        input.forEach {
+            val explLine = it.replace(Regex("""\s+"""), " ").trim()
+            if (explLine.split(" ").size <= 1) {
+                its.write(explLine)
+                its.newLine()
+            } else {
+                var thisOne = ""
+                val space = explLine.split(" ").size - 1
+                val hopsForEachSpace = (len - explLine.length + space) / space
+                val priorityForWords = (len - explLine.length + space) - hopsForEachSpace * space
+
+                for (i in 0 until priorityForWords)
+                    thisOne += explLine.split(" ")[i] + " ".repeat(hopsForEachSpace + 1)
+
+                for (i in priorityForWords until space)
+                    thisOne += explLine.split(" ")[i] + " ".repeat(hopsForEachSpace)
+
+                thisOne += explLine.split(" ").last()
+                its.write(thisOne)
+                its.newLine()
+            }
+        }
+    }
 }
 
 /**
@@ -407,29 +439,30 @@ fun markdownToHtml(inputName: String, outputName: String) {
 fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
     File(outputName).bufferedWriter().use {
         val size = (lhv * rhv).toString()
-        for (i in 0..size.length - lhv.toString().length)
-            it.write(" ")
+        //for (i in 0..size.length - lhv.toString().length)
+        it.write(" ".repeat(size.length - lhv.toString().length + 1))
         it.write(lhv.toString())
         it.newLine()
         it.write("*")
-        for (i in 1..size.length - rhv.toString().length)
-            it.write(" ")
+        //for (i in 1..size.length - rhv.toString().length)
+        it.write(" ".repeat(size.length - rhv.toString().length))
         it.write(rhv.toString())
         it.newLine()
-        for (i in 0..size.length)
-            it.write("-")
+        //for (i in 0..size.length)
+        it.write("-".repeat(size.length + 1))
         it.newLine()
         for (i in 0 until rhv.toString().length) {
             if (i != 0)
                 it.write("+")
             else it.write(" ")
             val current = (lhv * ((rhv / (10.0.pow(i)).toInt()) % 10)).toString()
-            for (j in 1..size.length - current.length - i) it.write(" ")
+            //for (j in 1..size.length - current.length - i)
+            it.write(" ".repeat(size.length - current.length - i))
             it.write(current)
             it.newLine()
         }
-        for (i in 0..size.length)
-            it.write("-")
+        //for (i in 0..size.length)
+        it.write("-".repeat(size.length + 1))
         it.newLine()
         it.write(" ${lhv * rhv}")
     }

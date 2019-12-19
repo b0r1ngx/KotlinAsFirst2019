@@ -188,6 +188,8 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+    //Здесь трудоемкость O(n * log(n)) ? Если да, то почти довел решение до O(n), но не успел до конца разобраться
+    //А ресурсоемкость O(n) ?
     val a = mutableMapOf<String, Double>()
     var count = 0
     var value = 0.0

@@ -65,7 +65,7 @@ class Tests {
         assertEquals("+12345", flattenPhoneNumber("+12 (3) 4-5"))
         // Eto fiasko, bratan
         assertEquals("+1245", flattenPhoneNumber("+12 () 4-5"))
-        //            ^^^^^^ 
+        //            ^^^^^^
         assertEquals("+425667", flattenPhoneNumber("+42 56 -- 67"))
         assertEquals("+42566789", flattenPhoneNumber("+42(56 -- 67)89"))
         assertEquals("", flattenPhoneNumber("ab-123"))

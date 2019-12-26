@@ -39,9 +39,10 @@ data class Square(val column: Int, val row: Int) {
  * Если нотация некорректна, бросить IllegalArgumentException
  */
 fun square(notation: String): Square =
-    if (!Regex("[a-h][1-8]").matches(notation)) throw IllegalArgumentException()
-    else
+    if (Regex("[a-h][1-8]").matches(notation))
         Square(notation[0] - 'a' + 1, notation[1] - '0')
+    else
+        throw IllegalArgumentException()
 
 /**
  * Простая
@@ -108,16 +109,15 @@ fun rookTrajectory(start: Square, end: Square): List<Square> = TODO()
  * Слон может пройти через клетку (6, 4) к клетке (3, 7).
  */
 fun bishopMoveNumber(start: Square, end: Square): Int {
+    if (!start.inside() && !end.inside()) throw IllegalArgumentException()
     if (start == end) return 0
     if ((start.column + start.row) % 2 != (end.column + end.row) % 2) return -1
-    if (start.inside() && end.inside()) {
-        var moves = 0
-        if (start.column + start.row != end.column + end.row)
-            moves++
-        if (start.column - start.row != end.column - end.row)
-            moves++
-        return moves
-    } else throw IllegalArgumentException()
+    var moves = 0
+    if (start.column + start.row != end.column + end.row)
+        moves++
+    if (start.column - start.row != end.column - end.row)
+        moves++
+    return moves
 }
 
 /**
@@ -138,7 +138,30 @@ fun bishopMoveNumber(start: Square, end: Square): Int {
  *          bishopTrajectory(Square(1, 3), Square(6, 8)) = listOf(Square(1, 3), Square(6, 8))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun bishopTrajectory(start: Square, end: Square): List<Square> {
+    when {
+        bishopMoveNumber(start, end) == -1 -> return listOf()
+        start == end -> return listOf(start)
+        bishopMoveNumber(start, end) == 1 -> return listOf(start, end)
+    }
+    var steps = 1
+    val step = listOf(1 to 1, 1 to -1, -1 to -1, -1 to 1)
+    val allSteps = mutableSetOf<Square>()
+    while (allSteps.none { bishopMoveNumber(it, end) == 1 }) {
+        allSteps.clear()
+        for (i in 0 until step.size) {
+            allSteps.add(
+                Square(
+                    start.column + step[i].first * steps,
+                    start.row + step[i].second * steps
+                )
+            )
+
+        }
+        steps++
+    }
+    return listOf(start, allSteps.first { it.inside() && bishopMoveNumber(it, end) == 1 }, end)
+}
 
 /**
  * Средняя

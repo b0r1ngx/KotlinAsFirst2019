@@ -55,7 +55,7 @@ class Triangle private constructor(private val points: Set<Point>) {
         val abp = Triangle(a, b, p)
         val bcp = Triangle(b, c, p)
         val cap = Triangle(c, a, p)
-        return abp.area() + bcp.area() + cap.area() == area()
+        return abp.area() + bcp.area() + cap.area() <= area() // is not work as well
     }
 
     override fun equals(other: Any?) = other is Triangle && points == other.points
@@ -63,6 +63,59 @@ class Triangle private constructor(private val points: Set<Point>) {
     override fun hashCode() = points.hashCode()
 
     override fun toString() = "Triangle(a = $a, b = $b, c = $c)"
+}
+
+/**
+ * Вывод такой: надо исправлять алгоритм поиска точки в треугольнике,
+ * заменой на векторный поиск.-.понимаю что немного зациклился не на том
+ * и скорее всего для большинства очевидно что здесь будет что-то не так,
+ * но все же для будущего поколения стоит эти изьяны убрать
+ *
+ * result:
+ * ploshad' izza P = 0.7499999999999857 + 3.000000000000001 + 2.2499999999999982= 5.999999999999985
+ * ploshad' izza M = 0.25000000000000505 + 4.999999999999997 + 0.7499999999999988= 6.000000000000002
+ * ploshad' izza N = 0.49999999999999833 + 0.9999999999999981 + 4.499999999999998= 5.999999999999995
+ * ploshad' izza T = 2.5000000000000027 + 1.999999999999999 + 1.4999999999999998= 6.000000000000002
+ * ploshad' osnovi = 6.0
+ */
+fun main() {
+    val new = Triangle(Point(0.0, 0.0), Point(0.0, 3.0), Point(4.0, 0.0))
+    val dotP = Point(1.5, 1.5)
+    val dotM = Point(0.5, 2.5)
+    val dotN = Point(3.0, 0.5)
+    val dotT = Point(1.0, 1.0)
+    val abp = Triangle(dotP, Point(0.0, 3.0), Point(4.0, 0.0))
+    val bcp = Triangle(Point(0.0, 0.0), dotP, Point(4.0, 0.0))
+    val cap = Triangle(Point(0.0, 0.0), Point(0.0, 3.0), dotP)
+
+    val abm = Triangle(dotM, Point(0.0, 3.0), Point(4.0, 0.0))
+    val bcm = Triangle(Point(0.0, 0.0), dotM, Point(4.0, 0.0))
+    val cam = Triangle(Point(0.0, 0.0), Point(0.0, 3.0), dotM)
+
+    val abn = Triangle(dotN, Point(0.0, 3.0), Point(4.0, 0.0))
+    val bcn = Triangle(Point(0.0, 0.0), dotN, Point(4.0, 0.0))
+    val can = Triangle(Point(0.0, 0.0), Point(0.0, 3.0), dotN)
+
+    val abt = Triangle(dotT, Point(0.0, 3.0), Point(4.0, 0.0))
+    val bct = Triangle(Point(0.0, 0.0), dotT, Point(4.0, 0.0))
+    val cat = Triangle(Point(0.0, 0.0), Point(0.0, 3.0), dotT)
+    println(
+        "ploshad' izza P = ${abp.area()} + ${bcp.area()} + ${cap.area()}" +
+                " = ${abp.area() + bcp.area() + cap.area()}"
+    )
+    println(
+        "ploshad' izza M = ${abm.area()} + ${bcm.area()} + ${cam.area()}" +
+                " = ${abm.area() + bcm.area() + cam.area()}"
+    )
+    println(
+        "ploshad' izza N = ${abn.area()} + ${bcn.area()} + ${can.area()}" +
+                " = ${abn.area() + bcn.area() + can.area()}"
+    )
+    println(
+        "ploshad' izza T = ${abt.area()} + ${bct.area()} + ${cat.area()}" +
+                " = ${abt.area() + bct.area() + cat.area()}"
+    )
+    println("ploshad' osnovi (ABC) = ${new.area()}")
 }
 
 fun newTriangle(): Double {

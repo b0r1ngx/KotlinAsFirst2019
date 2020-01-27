@@ -132,6 +132,7 @@ class Tests {
         assertFalse(containsIn(mapOf("a" to "k", "a" to "d"), mapOf("a" to "z", "a" to "k")))
         assertFalse(containsIn(mapOf("a" to "y"), mapOf("a" to "z", "b" to "sweet")))
         assertTrue(containsIn(mapOf(), mapOf()))
+        assertTrue(containsIn(mapOf(), mapOf("" to "")))
     }
 
     @Test

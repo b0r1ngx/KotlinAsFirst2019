@@ -14,7 +14,7 @@ data class Point(val x: Double, val y: Double) {
      *
      * Рассчитать (по известной формуле) расстояние между двумя точками
      */
-    fun distance(other: Point): Double = sqrt(sqr(x - other.x) + sqr(y - other.y))
+    fun distance(other: Point): Double = sqrt(sqr(other.x - x) + sqr(other.y - y))
 }
 
 /**
@@ -34,6 +34,7 @@ class Triangle private constructor(private val points: Set<Point>) {
 
     constructor(a: Point, b: Point, c: Point) : this(linkedSetOf(a, b, c))
 
+    fun perimeter() = a.distance(b) + b.distance(c) + c.distance(a)
     /**
      * Пример: полупериметр
      */
@@ -62,6 +63,12 @@ class Triangle private constructor(private val points: Set<Point>) {
     override fun hashCode() = points.hashCode()
 
     override fun toString() = "Triangle(a = $a, b = $b, c = $c)"
+}
+
+fun newTriangle(): Double {
+    val tri = Triangle(Point(0.0, 0.0), Point(0.0, 3.0), Point(4.0, 0.0))
+    println(tri.perimeter())
+    return tri.perimeter()
 }
 
 /**

@@ -3,6 +3,7 @@ package lesson8.task2
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import java.lang.IllegalArgumentException
 import kotlin.math.abs
 
 class Tests {
@@ -76,6 +77,12 @@ class Tests {
         assertEquals(0, bishopMoveNumber(square("d4"), square("d4")))
         assertEquals(1, bishopMoveNumber(square("a3"), square("e7")))
         assertEquals(2, bishopMoveNumber(square("c1"), square("c7")))
+        /**
+         * Если учесть IllegalArgumentException() только в конце, то на клетки за границами доски, не будет работать код,
+         * т.к. у вас учет идет по клеткам только в тестах с помощью функции square(), а если просто клетку завести,
+         * и не бросить ошибку раньше всего, то ее потом не обработает функция, и будет работать неправильно.
+         */
+        assertThrows(IllegalArgumentException::class.java) { bishopMoveNumber(Square(11, 5), Square(11, 5)) }
     }
 
     private fun List<Square>.assertBishopTrajectory(start: Square, end: Square, length: Int) {
@@ -94,10 +101,13 @@ class Tests {
     fun bishopTrajectory() {
         assertEquals(listOf<Square>(), bishopTrajectory(square("a1"), square("g8")))
         assertEquals(listOf<Square>(), bishopTrajectory(square("c1"), square("f3")))
+        assertEquals(listOf<Square>(), bishopTrajectory(square("d3"), square("d4")))
         assertEquals(listOf(square("d4")), bishopTrajectory(square("d4"), square("d4")))
         assertEquals(listOf(square("a3"), square("e7")), bishopTrajectory(square("a3"), square("e7")))
         assertEquals(listOf(square("c1"), square("f4"), square("c7")), bishopTrajectory(square("c1"), square("c7")))
         assertEquals(listOf(square("f1"), square("c4"), square("f7")), bishopTrajectory(square("f1"), square("f7")))
+        assertEquals(listOf(square("d2"), square("e3"), square("d4")), bishopTrajectory(square("d2"), square("d4")))
+        //assertEquals(listOf(square("d2"), square("c3"), square("d4")), bishopTrajectory(square("d2"), square("d4")))
         bishopTrajectory(square("d2"), square("e5")).assertBishopTrajectory(square("d2"), square("e5"), 2)
     }
 

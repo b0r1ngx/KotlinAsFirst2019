@@ -3,7 +3,6 @@
 package lesson8.task1
 
 import lesson1.task1.sqr
-import java.lang.IllegalArgumentException
 import kotlin.math.*
 
 /**
@@ -157,6 +156,10 @@ class Line private constructor(val b: Double, val angle: Double) {
         x = (cos(angle) * other.b - cos(other.angle) * b) / sin(angle - other.angle),
         y = (sin(angle) * other.b - sin(other.angle) * b) / sin(angle - other.angle)
     )
+//    fun crossPoint(other: Line): Point = Point(
+//        (cos(angle) * other.b - cos(other.angle) * b) / sin(angle - other.angle),
+//        (sin(angle) * other.b - sin(other.angle) * b) / sin(angle - other.angle)
+//    )
 
     override fun equals(other: Any?) = other is Line && angle == other.angle && b == other.b
 
@@ -174,7 +177,16 @@ class Line private constructor(val b: Double, val angle: Double) {
  *
  * Построить прямую по отрезку
  */
-fun lineBySegment(s: Segment): Line = TODO()
+fun lineBySegment(s: Segment): Line {
+    val angle = atan2(s.end.y - s.begin.y, s.end.x - s.begin.x)
+    return Line(
+        s.begin,
+        when {
+            angle >= 0 -> angle
+            else -> (PI + angle)
+        }
+    )
+}
 
 /**
  * Средняя
@@ -182,9 +194,18 @@ fun lineBySegment(s: Segment): Line = TODO()
  * Построить прямую по двум точкам
  */
 fun lineByPoints(a: Point, b: Point): Line {
-    val angle = atan2(b.y - a.y, b.x - a.x) % PI //end.y - begin.y, end.x - begin.x
-    return Line(a, angle)
+    val angle = atan2(b.y - a.y, b.x - a.x)//scnd.y - frst.y, scnd.x - frst.x
+    return Line(
+        a, when {
+            angle >= 0 -> angle
+            else -> (PI + angle)
+        }
+    )
 }
+//fun lineByPoints(a: Point, b: Point): Line {
+//    val angle = atan2(b.y - a.y, b.x - a.x) % PI //end.y - begin.y, end.x - begin.x
+//    return Line(a, angle)
+//}
 
 /**
  * Сложная
@@ -201,7 +222,10 @@ fun bisectorByPoints(a: Point, b: Point): Line { // center, angle
         }
     )
 }
-
+//fun bisectorByPoints(a: Point, b: Point): Line = Line(
+//    circleByDiameter(Segment(a, b)).center,
+//    (lineByPoints(a, b).angle + PI / 2) % PI
+//)
 /**
  * Средняя
  *

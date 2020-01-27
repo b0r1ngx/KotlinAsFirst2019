@@ -2,6 +2,8 @@
 
 package lesson8.task2
 
+import java.lang.IllegalArgumentException
+
 /**
  * Клетка шахматной доски. Шахматная доска квадратная и имеет 8 х 8 клеток.
  * Поэтому, обе координаты клетки (горизонталь row, вертикаль column) могут находиться в пределах от 1 до 8.
@@ -22,7 +24,11 @@ data class Square(val column: Int, val row: Int) {
      * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
      * Для клетки не в пределах доски вернуть пустую строку
      */
-    fun notation(): String = TODO()
+    fun notation(): String {
+        if (column !in 1..8 || row !in 1..8) return ""
+        val list = listOf<String>("a", "b", "c", "d", "e", "f", "g", "h")
+        return "${list[column - 1]}$row"
+    }
 }
 
 /**
@@ -32,7 +38,11 @@ data class Square(val column: Int, val row: Int) {
  * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
  * Если нотация некорректна, бросить IllegalArgumentException
  */
-fun square(notation: String): Square = TODO()
+fun square(notation: String): Square =
+    if (Regex("[a-h][1-8]").matches(notation))
+        Square(notation[0] - 'a' + 1, notation[1] - '0')
+    else
+        throw IllegalArgumentException()
 
 /**
  * Простая
@@ -98,7 +108,17 @@ fun rookTrajectory(start: Square, end: Square): List<Square> = TODO()
  * Примеры: bishopMoveNumber(Square(3, 1), Square(6, 3)) = -1; bishopMoveNumber(Square(3, 1), Square(3, 7)) = 2.
  * Слон может пройти через клетку (6, 4) к клетке (3, 7).
  */
-fun bishopMoveNumber(start: Square, end: Square): Int = TODO()
+fun bishopMoveNumber(start: Square, end: Square): Int {
+    if (!start.inside() && !end.inside()) throw IllegalArgumentException()
+    if (start == end) return 0
+    if ((start.column + start.row) % 2 != (end.column + end.row) % 2) return -1
+    var moves = 0
+    if (start.column + start.row != end.column + end.row)
+        moves++
+    if (start.column - start.row != end.column - end.row)
+        moves++
+    return moves
+}
 
 /**
  * Сложная
@@ -118,7 +138,30 @@ fun bishopMoveNumber(start: Square, end: Square): Int = TODO()
  *          bishopTrajectory(Square(1, 3), Square(6, 8)) = listOf(Square(1, 3), Square(6, 8))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun bishopTrajectory(start: Square, end: Square): List<Square> {
+    when {
+        bishopMoveNumber(start, end) == -1 -> return listOf()
+        start == end -> return listOf(start)
+        bishopMoveNumber(start, end) == 1 -> return listOf(start, end)
+    }
+    var steps = 1
+    val step = listOf(1 to 1, 1 to -1, -1 to -1, -1 to 1)
+    val allSteps = mutableSetOf<Square>()
+    while (allSteps.none { bishopMoveNumber(it, end) == 1 }) {
+        allSteps.clear()
+        for (i in 0 until step.size) {
+            allSteps.add(
+                Square(
+                    start.column + step[i].first * steps,
+                    start.row + step[i].second * steps
+                )
+            )
+
+        }
+        steps++
+    }
+    return listOf(start, allSteps.first { it.inside() && bishopMoveNumber(it, end) == 1 }, end)
+}
 
 /**
  * Средняя
@@ -204,3 +247,4 @@ fun knightMoveNumber(start: Square, end: Square): Int = TODO()
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
 fun knightTrajectory(start: Square, end: Square): List<Square> = TODO()
+
